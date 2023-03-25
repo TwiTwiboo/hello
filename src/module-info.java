@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author Hemlo
+ *
+ */
+module hello {
+}
