@@ -1,0 +1,97 @@
+.robot-grid {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+  .robot-container {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   overflow: hidden;
+}
+
+.robot-body {
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: purple;
+}
+
+.robot-head {
+  width: 40px;
+  height: 40px;
+  background-color: lightgray;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: green;
+}
+
+.robot-eye {
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translateY(-50%);
+  background-color: white;
+}
+
+.robot-eye.right {
+  left: 70%;
+}
+
+.robot-arm {
+  width: 100px;
+  height: 10px;
+  background-color: gray;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: left;
+  background-color: purple;
+}
+
+.robot-arm.left {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.robot-arm.right {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        #robotCanvas {
+            border: 1px solid black;
+        }
+.arrow {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
