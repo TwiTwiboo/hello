@@ -9,14 +9,25 @@
     <link rel="stylesheet" type="text/css" href="css/robot.css">   
 </head>
 <body>
-   
-    <canvas id="robotCanvas" width="800" height="800"></canvas>
+    <div class="container">
+        <h1 class="text-center mt-3">Robot Details</h1>
 
-    <div class="mt-3">
-        <button onclick="moveRobot('forward')">Go Forward</button>
-        <button onclick="moveRobot('backward')">Go Backward</button>
-        <button onclick="moveRobot('left')">Go Left</button>
-        <button onclick="moveRobot('right')">Go Right</button>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <canvas id="robotCanvas" width="600" height="600"></canvas>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary mr-2" onclick="moveRobot('forward')">Go Forward</button>
+                    <button class="btn btn-primary mr-2" onclick="moveRobot('backward')">Go Backward</button>
+                    <button class="btn btn-primary mr-2" onclick="moveRobot('left')">Go Left</button>
+                    <button class="btn btn-primary" onclick="moveRobot('right')">Go Right</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -32,24 +43,56 @@
             // Clear the canvas
             context.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw the robot image on the canvas
-            var robotImage = new Image();
-            robotImage.onload = function() {
-                // Specify the desired width and height for the robot image
-                var imageWidth = 300;
-                var imageHeight = 300;
+            //  Body (Circle)
+            context.fillStyle = '#F5D04C';
+            context.beginPath();
+            context.arc(currentPosition.x, currentPosition.y, 30, 0, 2 * Math.PI);//180*2=360
+            context.closePath();
+            context.fill();
 
-                // Calculate the position to draw the image centered at the current position
-                var drawX = currentPosition.x - imageWidth / 2;
-                var drawY = currentPosition.y - imageHeight / 2;
+            // Head (Half Circle)
+            context.fillStyle = '#F5D04C';
+            context.beginPath();
+            context.arc(currentPosition.x, currentPosition.y - 35, 15, Math.PI, 2 * Math.PI);
+            context.closePath();
+            context.fill();
 
-                // Draw the image
-                context.drawImage(robotImage, drawX, drawY, imageWidth, imageHeight);
-            };
+            // black eyes(Circle)
+            context.fillStyle = '#2F383B';
+            context.beginPath();
+            context.arc(currentPosition.x - 10, currentPosition.y - 35, 2, 0, 2 * Math.PI);
+            context.closePath();
+            context.fill();
 
-            // Set the source of the robot image
-            robotImage.src = 'images/bb8.png';
+            context.fillStyle = '#2F383B';
+            context.beginPath();
+            context.arc(currentPosition.x + 10, currentPosition.y - 35, 2, 0, 2 * Math.PI);
+            context.closePath();
+            context.fill();
+
+            // Droid Lines
+            context.strokeStyle = '#2F383B';
+            context.lineWidth = 2;
+
+            //belly
+            context.beginPath();
+            context.moveTo(currentPosition.x - 15, currentPosition.y);
+            context.lineTo(currentPosition.x + 15, currentPosition.y);
+            context.stroke();
+			//feet
+            context.beginPath();
+            context.moveTo(currentPosition.x - 10, currentPosition.y + 25);
+            context.lineTo(currentPosition.x - 20, currentPosition.y + 35);
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(currentPosition.x + 10, currentPosition.y + 25);
+            context.lineTo(currentPosition.x + 20, currentPosition.y + 35);
+            context.stroke();
         }
+
+
+
         function moveRobot(direction) {
             // Make an AJAX request to the RobotServlet
             var xhr = new XMLHttpRequest();

@@ -1,5 +1,6 @@
 
 
+import java.awt.Canvas;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,8 @@ public class RobotServlet extends HttpServlet {
     public RobotServlet() {
         super();
         // Initialize the Robot object
-        robot = new Robot(1, "BB8", "north", 0, 0, 10);
+        robot = new Robot(1, "BB8", "north", Canvas.WIDTH / 2, Canvas.HEIGHT / 2, 10);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
