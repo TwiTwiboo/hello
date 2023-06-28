@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Robot Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/robot.css">   
 </head>
 <body>
@@ -79,16 +79,7 @@
             context.moveTo(currentPosition.x - 15, currentPosition.y);
             context.lineTo(currentPosition.x + 15, currentPosition.y);
             context.stroke();
-			//feet
-            context.beginPath();
-            context.moveTo(currentPosition.x - 10, currentPosition.y + 25);
-            context.lineTo(currentPosition.x - 20, currentPosition.y + 35);
-            context.stroke();
-
-            context.beginPath();
-            context.moveTo(currentPosition.x + 10, currentPosition.y + 25);
-            context.lineTo(currentPosition.x + 20, currentPosition.y + 35);
-            context.stroke();
+			
         }
 
 

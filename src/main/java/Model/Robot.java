@@ -2,17 +2,15 @@ package Model;
 
 public class Robot {
 
-	private int id;
-    private String name;
+
     private String direction;
     private int currentPositionX;
     private int currentPositionY;
     private int step;
 
     // Constructor
-    public Robot(int id, String name, String direction, int currentPositionX, int currentPositionY, int step) {
-        this.id = id;
-        this.name = name;
+    public Robot( String direction, int currentPositionX, int currentPositionY, int step) {
+
         this.direction = direction;
         this.currentPositionX = currentPositionX;
         this.currentPositionY = currentPositionY;
@@ -69,22 +67,7 @@ public class Robot {
              
            
 
-    // Getters and setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    // Getters and setters  
 
     public String getDirection() {
         return direction;

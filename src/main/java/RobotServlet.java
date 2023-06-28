@@ -24,7 +24,7 @@ public class RobotServlet extends HttpServlet {
     public RobotServlet() {
         super();
         // Initialize the Robot object
-        robot = new Robot(1, "BB8", "north", Canvas.WIDTH / 2, Canvas.HEIGHT / 2, 10);
+        robot = new Robot( "north", Canvas.WIDTH / 2, Canvas.HEIGHT / 2, 20);
 
     }
 
