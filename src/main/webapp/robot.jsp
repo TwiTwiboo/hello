@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Robot Page</title>
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/robot.css">   
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <h1 class="text-center mt-3">Robot Details</h1>
 
         <div class="row justify-content-center">
@@ -17,18 +17,18 @@
                 <canvas id="robotCanvas" width="600" height="600"></canvas>
             </div>
         </div>
-
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-6">
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary mr-2" onclick="moveRobot('forward')">Go Forward</button>
-                    <button class="btn btn-primary mr-2" onclick="moveRobot('backward')">Go Backward</button>
-                    <button class="btn btn-primary mr-2" onclick="moveRobot('left')">Go Left</button>
-                    <button class="btn btn-primary" onclick="moveRobot('right')">Go Right</button>
-                </div>
-            </div>
-        </div>
+<!-- mb- =margin button, mr= margin right  -->
+       <div class="row justify-content-center mt-3">
+    	<div class="col-md-6">
+        <div class="d-flex justify-content-center">
+ 			<button class="btn btn-primary custom-btn mx-2" onclick="moveRobot('forward')">Go Forward</button>
+  			<button class="btn btn-primary custom-btn mx-2" onclick="moveRobot('backward')">Go Backward</button>
+  			<button class="btn btn-primary custom-btn mx-2" onclick="moveRobot('left')">Go Left</button>
+  			<button class="btn btn-primary custom-btn mx-2" onclick="moveRobot('right')">Go Right</button>
+		</div>
     </div>
+	</div>
+</div>
 
     <script>
         var canvas = document.getElementById('robotCanvas');
@@ -38,72 +38,66 @@
         function clearCanvas() {
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
+       
+        	function drawCircle(x, y, radius, color) {
+        	  context.fillStyle = color;
+        	  context.beginPath();
+        	  context.arc(x, y, radius, 0, 2 * Math.PI);
+        	  context.closePath();
+        	  context.fill();
+        	}
 
-        function drawRobot() {
-            // Clear the canvas
-            context.clearRect(0, 0, canvas.width, canvas.height);
+        	function drawLine(x1, y1, x2, y2, color, lineWidth) {
+        	  context.strokeStyle = color;
+        	  context.lineWidth = lineWidth;
+        	  context.beginPath();
+        	  context.moveTo(x1, y1);
+        	  context.lineTo(x2, y2);
+        	  context.stroke();
+        	}
 
-            //  Body (Circle)
-            context.fillStyle = '#F5D04C';
-            context.beginPath();
-            context.arc(currentPosition.x, currentPosition.y, 30, 0, 2 * Math.PI);//180*2=360
-            context.closePath();
-            context.fill();
+        	function drawRobot() {
+        	  // Clear the canvas
+        	  clearCanvas();
 
-            // Head (Half Circle)
-            context.fillStyle = '#F5D04C';
-            context.beginPath();
-            context.arc(currentPosition.x, currentPosition.y - 35, 15, Math.PI, 2 * Math.PI);
-            context.closePath();
-            context.fill();
+        	  //  Body (Circle)
+        	  drawCircle(currentPosition.x, currentPosition.y, 30, '#F5D04C');
 
-            // black eyes(Circle)
-            context.fillStyle = '#2F383B';
-            context.beginPath();
-            context.arc(currentPosition.x - 10, currentPosition.y - 35, 2, 0, 2 * Math.PI);
-            context.closePath();
-            context.fill();
+        	  // Head (Half Circle)
+        	  drawCircle(currentPosition.x, currentPosition.y - 35, 15, '#F5D04C');
 
-            context.fillStyle = '#2F383B';
-            context.beginPath();
-            context.arc(currentPosition.x + 10, currentPosition.y - 35, 2, 0, 2 * Math.PI);
-            context.closePath();
-            context.fill();
+        	  // Black eyes (Circles)
+        	  drawCircle(currentPosition.x - 10, currentPosition.y - 35, 2, '#2F383B');
+        	  drawCircle(currentPosition.x + 10, currentPosition.y - 35, 2, '#2F383B');
 
-            // Droid Lines
-            context.strokeStyle = '#2F383B';
-            context.lineWidth = 2;
+        	  // Droid Lines
+        	  drawLine(currentPosition.x - 15, currentPosition.y, currentPosition.x + 15, currentPosition.y, '#2F383B', 2);
+        	}
 
-            //belly
-            context.beginPath();
-            context.moveTo(currentPosition.x - 15, currentPosition.y);
-            context.lineTo(currentPosition.x + 15, currentPosition.y);
-            context.stroke();
-			
-        }
-
-
-
+        
+// The method that is not linked to the backend
         function moveRobot(direction) {
-            // Make an AJAX request to the RobotServlet
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'RobotServlet', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('action=' + direction);
+            // Update the position of the robot based on the direction input
+            switch (direction) {
+                case 'forward':
+                    currentPosition.y -= 20; // Move the robot up
+                    break;
+                case 'backward':
+                    currentPosition.y += 20; // Move the robot down
+                    break;
+                case 'left':
+                    currentPosition.x -= 20; // Move the robot left
+                    break;
+                case 'right':
+                    currentPosition.x += 20; // Move the robot right
+                    break;
+            }
 
-            // Update the position of the robot based on the response from the server
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    currentPosition.x = response.currentPositionX;
-                    currentPosition.y = response.currentPositionY;
-
-                    // Clear the canvas and redraw the robot at the new position
-                    clearCanvas();
-                    drawRobot();
-                }
-            };
+            // Clear the canvas and redraw the robot at the new position
+            clearCanvas();
+            drawRobot();
         }
+		     
 
         drawRobot(); // Initial drawing of the robot
     </script>
